@@ -27,7 +27,17 @@ interface DataPage {
 
 export function Home() {
   const [currentPage, setCurrentPage] = useState("ErpMWFTools");
-  const [dataPage, setDataPage] = useState([]);
+  const [dataPage, setDataPage] = useState<DataPage>({
+    rcc: "",
+    namePage: "",
+    title: "",
+    subTitleH1: "",
+    subTitleH2: "",
+    subTitleH3: "",
+    header1DTOoutList: [],
+    header2DTOoutList: [],
+    header3DTOoutList: [],
+  });
   const [history, setHistory] = useState(["ErpMWFTools"]);
 
   //body
