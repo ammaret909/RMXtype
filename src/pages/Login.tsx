@@ -2,12 +2,26 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
+import { useDispatch, useSelector } from "react-redux";
+import { setTest } from "../store/actions";
+import { RootState } from "../store/rootReducer";
+import { getTest } from "../store/selectors";
+
 export function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkbox, setCheckbox] = useState<boolean>(false);
   // const [statusLogin, setStatusLogin] = useState();
+
+  const dispatch = useDispatch();
+
+  const testDispatch = () => {
+    dispatch(setTest("test"));
+  };
+
+  const gettest = useSelector<RootState, string>(getTest);
+  console.log(gettest);
 
   const handleCheckboxChange = () => {
     setCheckbox(!checkbox);
@@ -49,6 +63,10 @@ export function Login() {
       className="bg-white flex justify-center items-center min-h-screen p-2"
       onSubmit={handleSubmit}
     >
+      <button onClick={testDispatch} type="button" className="btn">
+        TEST
+      </button>
+
       <div className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 max-w-sm">
         <div className=" pb-4">
           <img
