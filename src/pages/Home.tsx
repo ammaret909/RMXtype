@@ -4,30 +4,19 @@ import ButtonMenu from "../components/ButtonMenu";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
-interface HeaderAllDTOoutItem {
-  rcc: string;
-  headerNumber: number;
-  file_name: string;
-  header_name: string;
-  popup: string;
-  sequence: number;
-}
-
-interface DataPage {
-  rcc: string;
-  namePage: string;
-  title: string;
-  subTitleH1: string;
-  subTitleH2: string;
-  subTitleH3: string;
-  header1DTOoutList: HeaderAllDTOoutItem[];
-  header2DTOoutList: HeaderAllDTOoutItem[];
-  header3DTOoutList: HeaderAllDTOoutItem[];
-}
-
 export function Home() {
   const [currentPage, setCurrentPage] = useState("ErpMWFTools");
-  const [dataPage, setDataPage] = useState([]);
+  const [dataPage, setDataPage] = useState<DataPage>({
+    rcc: "",
+    namePage: "",
+    title: "",
+    subTitleH1: "",
+    subTitleH2: "",
+    subTitleH3: "",
+    header1DTOoutList: [],
+    header2DTOoutList: [],
+    header3DTOoutList: [],
+  });
   const [history, setHistory] = useState(["ErpMWFTools"]);
 
   //body
