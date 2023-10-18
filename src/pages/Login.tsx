@@ -1,31 +1,26 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-
-import { useDispatch, useSelector } from "react-redux";
-import { setTest } from "../store/actions";
-import { RootState } from "../store/rootReducer";
-import { getTest } from "../store/selectors";
 
 export function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [checkbox, setCheckbox] = useState<boolean>(false);
+  // const [checkbox, setCheckbox] = useState<boolean>(false);
   // const [statusLogin, setStatusLogin] = useState();
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const testDispatch = () => {
-    dispatch(setTest("test"));
-  };
+  // const testDispatch = () => {
+  //   dispatch(setTest("test"));
+  // };
 
-  const gettest = useSelector<RootState, string>(getTest);
-  console.log(gettest);
+  // const gettest = useSelector<RootState, string>(getTest);
+  // console.log(gettest);
 
-  const handleCheckboxChange = () => {
-    setCheckbox(!checkbox);
-  };
+  // const handleCheckboxChange = () => {
+  //   setCheckbox(!checkbox);
+  // };
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -63,9 +58,9 @@ export function Login() {
       className="bg-white flex justify-center items-center min-h-screen p-2"
       onSubmit={handleSubmit}
     >
-      <button onClick={testDispatch} type="button" className="btn">
+      {/* <button onClick={testDispatch} type="button" className="btn">
         TEST
-      </button>
+      </button> */}
 
       <div className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 max-w-sm">
         <div className=" pb-4">
@@ -120,11 +115,11 @@ export function Login() {
             <input
               id="link-checkbox"
               type="checkbox"
-              onChange={() => {
-                handleCheckboxChange;
-              }}
+              // onChange={() => {
+              //   handleCheckboxChange;
+              // }}
               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              value={checkbox}
+              // value={checkbox}
               required
             />
             <label

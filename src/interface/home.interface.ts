@@ -1,4 +1,5 @@
 interface HeaderAllDTOoutItem {
+  map(arg0: (data: any, index: any) => import("react/jsx-runtime").JSX.Element): React.ReactNode;
   rcc: string;
   headerNumber: number;
   file_name: string;

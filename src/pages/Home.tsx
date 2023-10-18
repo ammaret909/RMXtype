@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import ButtonMenu from "../components/ButtonMenu";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 export function Home() {
-  const [currentPage, setCurrentPage] = useState("ErpMWFTools");
+  const [, setCurrentPage] = useState("ErpMWFTools");
   const [dataPage, setDataPage] = useState<DataPage>({
     rcc: "",
     namePage: "",
@@ -43,17 +43,17 @@ export function Home() {
     }
   }
 
-  function close_dropdownH1() {
-    if (showH1 !== false) {
-      setShow(!showH1);
-    }
-  }
+  // function close_dropdownH1() {
+  //   if (showH1 !== false) {
+  //     setShow(!showH1);
+  //   }
+  // }
 
-  function close_dropdownH2() {
-    if (showH2 !== false) {
-      setShow(!showH2);
-    }
-  }
+  // function close_dropdownH2() {
+  //   if (showH2 !== false) {
+  //     setShow(!showH2);
+  //   }
+  // }
 
   async function logout() {
     const receiveLogoutBody = {
@@ -381,9 +381,9 @@ export function Home() {
                     // console.log("back");
                     setHistory(history.slice(0, -1));
                   }}
-                  className=" col-span-2 btn rounded-box shadow-xl bg-white row"
+                  className=" text-xl col-span-2 btn rounded-box shadow-xl bg-white row"
                 >
-                  Back
+                  {"<"}
                 </div>
               )}
             </div>
