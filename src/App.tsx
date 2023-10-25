@@ -11,6 +11,9 @@ import { UserDashBoard } from "./pages/UserDashBoard";
 import { PostFileAsp } from "./pages/PostFileAsp";
 import { SearchAndEditPage } from "./pages/SearchAndEditPage";
 import { CreatePage } from "./pages/CreatePage";
+import { TestFunction } from "./pages/TestFunction";
+import { ManageErrorMassage } from "./pages/ManageErrorMassage";
+import { CreateErrorMassage } from "./pages/CreateErrorMassage";
 export default function App() {
   return (
     <Routes>
@@ -23,9 +26,12 @@ export default function App() {
       <Route path="/show_user" element={<ShowUser />} />
       <Route path="/role_user" element={<RoleUser />} />
       <Route path="/dashboard_user" element={<UserDashBoard />} />
-      <Route path="/post_asp" element={<PostFileAsp />} />
-      <Route path="/search_page" element={<SearchAndEditPage />} />
-      <Route path="/create_page" element={<CreatePage />} />
+      <Route path="/page/asp" element={<PostFileAsp />} />
+      <Route path="/page/search" element={<SearchAndEditPage />} />
+      <Route path="/page/create" element={<CreatePage />} />
+      <Route path="/massage/error" element={<ManageErrorMassage />} />
+      <Route path="/massage/create" element={<CreateErrorMassage />} />
+      <Route path="/menu/test" element={<TestFunction />} />
     </Routes>
   );
 }

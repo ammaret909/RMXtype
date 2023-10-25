@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const initHeader: HeaderAllPage = {
   rcc: "",
@@ -19,29 +20,29 @@ export function SearchAndEditPage() {
   const [h2, setH2] = useState<HeaderAllPage[]>([initHeader]);
   const [h3, setH3] = useState<HeaderAllPage[]>([initHeader]);
   const [showFrom, setShowFrom] = useState(false);
+  const [showSearch, setShowSearch] = useState(true);
+  const navigate = useNavigate();
 
   const searchBodyPage = {
-    title: search,
+    namePage: search,
   };
 
   const searchPages = async () => {
     setH1([]);
     setH2([]);
     setH3([]);
-    //3.133.137.68 RemomaxBE
-    const response = await fetch(
-      `http://3.133.137.68:8080/RemomaxBE/search/page`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(searchBodyPage),
-      }
-    );
+    const response = await fetch(`http://localhost:8080/search/page`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(searchBodyPage),
+    });
     if (response.ok) {
       const data = await response.json();
       setPages(data);
+    } else {
+      console.log("fail");
     }
   };
 
@@ -51,7 +52,11 @@ export function SearchAndEditPage() {
     }
   }
 
-  const [showSearch, setShowSearch] = useState(true);
+  function hiddenFromEdit() {
+    if (showFrom !== false) {
+      setShowFrom(!showFrom);
+    }
+  }
 
   function hiddenDataSearch() {
     if (showSearch !== false) {
@@ -73,16 +78,12 @@ export function SearchAndEditPage() {
   };
 
   const getDataEdit = async (rcc: string) => {
-    //3.133.137.68 RemomaxBE
-    const response = await fetch(
-      `http://3.133.137.68:8080/RemomaxBE/edit/page/${rcc}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`http://localhost:8080/edit/page/${rcc}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     if (response.ok) {
       const data = await response.json();
       setRcc(data.rcc);
@@ -91,11 +92,9 @@ export function SearchAndEditPage() {
       setH1(countHeader(data.header1DTOoutList));
       setH2(countHeader(data.header2DTOoutList));
       setH3(countHeader(data.header3DTOoutList));
-      // setH1(data.header1DTOoutList);
-      // setH2(data.header2DTOoutList);
-      // setH3(data.header3DTOoutList);
     }
   };
+
   const postDataEdit = async () => {
     // e.preventDefault();
     const resBodyPage = {
@@ -109,23 +108,17 @@ export function SearchAndEditPage() {
       header2DTOoutList: h2,
       header3DTOoutList: h3,
     };
-    console.log(h1);
-    const response = await fetch(
-      `http://3.133.137.68:8080/RemomaxBE/edit/data`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(resBodyPage),
-      }
-    );
+    const response = await fetch(`http://localhost:8080/edit/data`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(resBodyPage),
+    });
     if (response.ok) {
-      // console.log("success");
       alert("success");
       window.location.reload();
     } else {
-      // console.log("fail");
       alert("fail");
     }
   };
@@ -157,12 +150,20 @@ export function SearchAndEditPage() {
     setFunction(temp);
   }
 
-  console.log(Pages);
   return (
     <div>
       <div className="grid grid-cols-12">
         <div className=" col-span-1"></div>
         <div className="col-span-10 mt-2">
+          <button
+            type="submit"
+            className="btn text-xl"
+            onClick={() => {
+              navigate("/menu/test");
+            }}
+          >
+            &larr;
+          </button>
           <div className="mt-2 mb-2 text-4xl font-extrabold leading-none tracking-tight">
             Search Page
           </div>
@@ -199,6 +200,7 @@ export function SearchAndEditPage() {
               onClick={() => {
                 searchPages();
                 showDataSearch();
+                hiddenFromEdit();
               }}
             >
               Search
@@ -230,23 +232,31 @@ export function SearchAndEditPage() {
           ) : null}
           {showFrom ? (
             <form className="grid col-span-10 grid-cols-12">
-              <div className="col-span-12 mt-2 mb-2 text-4xl font-extrabold leading-none tracking-tight">
+              {/* <div className="col-span-12 mt-2 mb-2 text-4xl font-extrabold leading-none tracking-tight ">
                 Edit Page
+              </div> */}
+              <div className="col-span-12 rounded-box shadow-xl bg-white p-6 mt-2">
+                <div className=" text-2xl font-medium text-gray-900">
+                  Name Page
+                </div>
+                <div className="text-sm font-medium text-gray-900">
+                  {namePage}
+                </div>
               </div>
               <div className="grid col-span-12 mb-1 mt-2 text-sm font-medium text-gray-900">
                 Title
               </div>
-              <div className="grid grid-cols-11 col-span-12 mr-1">
+              <div className="grid grid-cols-12 col-span-12 mr-1">
                 <input
                   type="text"
-                  className="mr-1 grid col-span-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
+                  className="mr-1 grid col-span-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
                   value={title}
                   onChange={(e) => {
                     setTitle(e.target.value);
                   }}
                 />
               </div>
-              <div className="grid col-span-12 mb-1 mt-2 text-sm font-medium text-gray-900">
+              {/* <div className="grid col-span-12 mb-1 mt-2 text-sm font-medium text-gray-900">
                 Name Page
               </div>
               <div className="grid grid-cols-11 col-span-12 mr-1">
@@ -258,23 +268,27 @@ export function SearchAndEditPage() {
                     setNamePage(e.target.value);
                   }}
                 />
-              </div>
+              </div> */}
               <div className="grid col-span-12 mt-2 text-sm font-medium text-gray-900">
                 Header 1
+              </div>
+              <div className="grid col-span-5 mt-2 text-sm font-medium text-gray-900">
+                Title Page
+              </div>
+              <div className="grid col-span-5 mt-2 text-sm font-medium text-gray-900">
+                Name Page
               </div>
               {h1.map((data, index) => (
                 <div
                   key={data.rcc}
-                  className="grid grid-cols-11 col-span-12 mr-1 mt-2"
+                  className="grid grid-cols-12 col-span-12  mt-2"
                 >
                   <input
                     type="text"
                     className="mr-1 grid col-span-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
                     defaultValue={data.header_name}
                     onChange={(e) => {
-                      // console.log("log e ", e.target.value, h1);
                       handleFormChange(h1, setH1, "header_name", index, e);
-                      // setH1(e.target.value);
                     }}
                   />
                   <input
@@ -282,7 +296,6 @@ export function SearchAndEditPage() {
                     className="mr-1 grid col-span-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
                     defaultValue={data.file_name}
                     onChange={(e) => {
-                      // console.log("log filename", e.target.value);
                       handleFormChange(h1, setH1, "file_name", index, e);
                     }}
                   />
@@ -292,7 +305,6 @@ export function SearchAndEditPage() {
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                       defaultChecked={data.popup === "checked"}
                       onChange={(e) => {
-                        // console.log("log checked", e.target.checked);
                         handleCheckboxChange(h1, setH1, "popup", index, e);
                       }}
                     />
@@ -300,7 +312,7 @@ export function SearchAndEditPage() {
                       htmlFor="default-checkbox"
                       className="col-span-2 ml-1 text-sm font-medium text-gray-900 dark:text-gray-300"
                     >
-                      Pop up
+                      Popup
                     </label>
                   </div>
                 </div>
@@ -308,17 +320,22 @@ export function SearchAndEditPage() {
               <div className="grid col-span-12 mt-2 text-sm font-medium text-gray-900">
                 Header 2
               </div>
+              <div className="grid col-span-5 mt-2 text-sm font-medium text-gray-900">
+                Title Page
+              </div>
+              <div className="grid col-span-5 mt-2 text-sm font-medium text-gray-900">
+                Name Page
+              </div>
               {h2.map((data, index) => (
                 <div
                   key={data.rcc}
-                  className="grid grid-cols-11 col-span-12 mr-1 mt-2"
+                  className="grid grid-cols-11 col-span-11 mr-1 mt-2"
                 >
                   <input
                     type="text"
                     className="mr-1 grid col-span-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
                     defaultValue={data.header_name}
                     onChange={(e) => {
-                      // console.log("log e ", e.target.value, h2);
                       handleFormChange(h2, setH2, "header_name", index, e);
                     }}
                   />
@@ -327,7 +344,6 @@ export function SearchAndEditPage() {
                     className="mr-1 grid col-span-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
                     defaultValue={data.file_name}
                     onChange={(e) => {
-                      // console.log("log filename", e.target.value);
                       handleFormChange(h2, setH2, "file_name", index, e);
                     }}
                   />
@@ -337,7 +353,6 @@ export function SearchAndEditPage() {
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                       defaultChecked={data.popup === "checked"}
                       onChange={(e) => {
-                        // console.log("log checked", e.target.checked);
                         handleCheckboxChange(h2, setH2, "popup", index, e);
                       }}
                     />
@@ -353,17 +368,22 @@ export function SearchAndEditPage() {
               <div className="grid col-span-12 mt-2 text-sm font-medium text-gray-900">
                 Header 3
               </div>
+              <div className="grid col-span-5 mt-2 text-sm font-medium text-gray-900">
+                Title Page
+              </div>
+              <div className="grid col-span-5 mt-2 text-sm font-medium text-gray-900">
+                Name Page
+              </div>
               {h3.map((data, index) => (
                 <div
                   key={data.rcc}
-                  className="grid grid-cols-11 col-span-12 mr-1 mt-2"
+                  className="grid grid-cols-11 col-span-11 mr-1 mt-2"
                 >
                   <input
                     type="text"
                     className="mr-1 grid col-span-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
                     defaultValue={data.header_name}
                     onChange={(e) => {
-                      // console.log("log e ", e.target.value, h3);
                       handleFormChange(h3, setH3, "header_name", index, e);
                     }}
                   />
@@ -372,7 +392,6 @@ export function SearchAndEditPage() {
                     className="mr-1 grid col-span-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
                     defaultValue={data.file_name}
                     onChange={(e) => {
-                      // console.log("log filename", e.target.value);
                       handleFormChange(h3, setH3, "file_name", index, e);
                     }}
                   />
@@ -382,7 +401,6 @@ export function SearchAndEditPage() {
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                       defaultChecked={data.popup === "checked"}
                       onChange={(e) => {
-                        // console.log("log checked", e.target.checked);
                         handleCheckboxChange(h3, setH3, "popup", index, e);
                       }}
                     />

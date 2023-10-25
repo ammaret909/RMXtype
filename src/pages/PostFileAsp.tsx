@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function PostFileAsp() {
   // const navigate = useNavigate();
   const [fileAsp, setFileAsp] = useState(null);
+  const navigate = useNavigate();
 
   const handleFileChange = (e: any) => {
     setFileAsp(e.target.files[0]);
@@ -17,13 +19,10 @@ export function PostFileAsp() {
     }
 
     try {
-      const response = await fetch(
-        `http://3.133.137.68:8080/RemomaxBE/converts_asp`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch(`http://localhost:8080/converts_asp`, {
+        method: "POST",
+        body: formData,
+      });
 
       if (response.ok) {
         // console.log("File uploaded successfully");
@@ -41,6 +40,15 @@ export function PostFileAsp() {
   return (
     <>
       <div className=" m-4">
+        <button
+          type="submit"
+          className="btn text-xl"
+          onClick={() => {
+            navigate("/menu/test");
+          }}
+        >
+          &larr;
+        </button>
         <form onSubmit={handleSubmit}>
           <input type="file" className="" onChange={handleFileChange} />
           <button type="submit" className="btn">

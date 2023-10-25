@@ -1,22 +1,26 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 export function CreatePage() {
   const [title, setTitle] = useState("");
   const [namePage, setNamePage] = useState("");
+  const navigate = useNavigate();
 
   const postCreatePage = async () => {
-
     const resBodyPage = {
       title: title,
       namePage: namePage,
     };
-    
-    const response = await fetch(`http://3.133.137.68:8080/RemomaxBE/create/page`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(resBodyPage),
-    });
+
+    const response = await fetch(
+      `http://3.133.137.68:8080/RemomaxBE/create/page`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(resBodyPage),
+      }
+    );
     if (response.ok) {
       // console.log("success");
       alert("success");
@@ -32,6 +36,15 @@ export function CreatePage() {
       <div className=" col-span-1"></div>
 
       <form className="grid col-span-10 grid-cols-12">
+        <button
+          type="submit"
+          className="btn text-xl"
+          onClick={() => {
+            navigate("/menu/test");
+          }}
+        >
+          &larr;
+        </button>
         <div className="col-span-12 mt-2 mb-2 text-4xl font-extrabold leading-none tracking-tight">
           Create Page
         </div>

@@ -18,24 +18,23 @@ export function Home() {
     header3DTOoutList: [],
   });
   const [history, setHistory] = useState(["ErpMWFTools"]);
-
-  //body
-
-  const getDataPage = (nextPage: string) => {
-    fetch(`http://3.133.137.68:8080/RemomaxBE/pages/${nextPage}`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setDataPage(data);
-      });
-  };
-
-  //header
   const [show, setShow] = useState(false);
   const [showH1, setShowH1] = useState(false);
   const [showH2, setShowH2] = useState(false);
   const navigate = useNavigate();
+
+  const getDataPage = (nextPage: string) => {
+    fetch(`http://localhost:8080/pages/${nextPage}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data: DataPage) => {
+        setDataPage(data);
+        Cookies.set("Page", data.namePage);
+      });
+  };
+
+  //header
 
   function close_dropdown() {
     if (show !== false) {
@@ -43,24 +42,12 @@ export function Home() {
     }
   }
 
-  // function close_dropdownH1() {
-  //   if (showH1 !== false) {
-  //     setShow(!showH1);
-  //   }
-  // }
-
-  // function close_dropdownH2() {
-  //   if (showH2 !== false) {
-  //     setShow(!showH2);
-  //   }
-  // }
-
   async function logout() {
     const receiveLogoutBody = {
       rcc: Cookies.get("RCC"),
     };
     const receiveLogout = await fetch(
-      `http://3.133.137.68:8080/RemomaxBE/receive/logout`,
+      `http://localhost:8080/RemomaxBE/receive/logout`,
       {
         method: "POST",
         headers: {
@@ -72,6 +59,7 @@ export function Home() {
     if (receiveLogout.ok) {
       Cookies.remove("RCC");
       Cookies.remove("USERID");
+      Cookies.remove("Page");
       navigate("/");
     }
   }
@@ -364,28 +352,29 @@ export function Home() {
               <ButtonMenu topic="Antique" />
               <ButtonMenu topic="KMT" />
               <ButtonMenu topic="แม่แบบ" />
+              <ButtonMenu topic="TEST" next="/menu/test" />
             </div>
           </div>
         </div>
 
         <div className="col-span-12 sm:col-span-9 md:col-span-9 lg:col-span-10 w-base-200 rounded-box ">
           <div className="grid grid-cols-1 text-zinc-600 text-sm">
-            {/* <TitleHead title={dataPage.title} /> */}
             <div className="rounded-box shadow-xl bg-white p-6 row m-2 grid grid-cols-12">
-              <div className="text-xl col-span-10 items-center py-4">
-                {dataPage.title}
-              </div>
               {history.length > 1 && (
                 <div
                   onClick={() => {
                     // console.log("back");
                     setHistory(history.slice(0, -1));
                   }}
-                  className=" text-xl col-span-2 btn rounded-box shadow-xl bg-white row"
+                  className=" text-xl col-span-2 sm:col-span-1 btn rounded-box shadow-xl bg-white row flex items-center"
+                  // className="btn m-1bg-current rmx_green hover:rmx_green text-zinc-600"
                 >
-                  {"<"}
+                  &larr;
                 </div>
               )}
+              <div className="text-xl ml-4 col-span-10 flex items-center">
+                {dataPage.title}
+              </div>
             </div>
           </div>
           {/* {history.length > 1 && (
