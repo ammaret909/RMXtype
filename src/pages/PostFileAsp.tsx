@@ -19,10 +19,13 @@ export function PostFileAsp() {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/converts_asp`, {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `http://3.133.137.68:8080/RemomaxBE/converts_asp`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         // console.log("File uploaded successfully");

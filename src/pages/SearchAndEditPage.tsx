@@ -31,13 +31,16 @@ export function SearchAndEditPage() {
     setH1([]);
     setH2([]);
     setH3([]);
-    const response = await fetch(`http://localhost:8080/search/page`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(searchBodyPage),
-    });
+    const response = await fetch(
+      `http://3.133.137.68:8080/RemomaxBE/search/page`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(searchBodyPage),
+      }
+    );
     if (response.ok) {
       const data = await response.json();
       setPages(data);
@@ -78,12 +81,15 @@ export function SearchAndEditPage() {
   };
 
   const getDataEdit = async (rcc: string) => {
-    const response = await fetch(`http://localhost:8080/edit/page/${rcc}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `http://3.133.137.68:8080/RemomaxBE/edit/page/${rcc}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (response.ok) {
       const data = await response.json();
       setRcc(data.rcc);
@@ -108,16 +114,19 @@ export function SearchAndEditPage() {
       header2DTOoutList: h2,
       header3DTOoutList: h3,
     };
-    const response = await fetch(`http://localhost:8080/edit/data`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(resBodyPage),
-    });
+    const response = await fetch(
+      `http://3.133.137.68:8080/RemomaxBE/edit/data`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(resBodyPage),
+      }
+    );
     if (response.ok) {
       alert("success");
-      window.location.reload();
+      // window.location.reload();
     } else {
       alert("fail");
     }

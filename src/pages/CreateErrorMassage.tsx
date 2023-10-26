@@ -1,14 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 export function CreateErrorMassage() {
   const [massage, setMassage] = useState("");
   const [description, setDescription] = useState("");
+  const navigate = useNavigate();
 
   const createMessage = async () => {
     const resBodyErrorMassage = {
       massage: massage,
       description: description,
     };
-    const response = await fetch(`http://localhost:8080/massage`, {
+    const response = await fetch(`http://3.133.137.68:8080/RemomaxBE/massage`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,6 +29,15 @@ export function CreateErrorMassage() {
     <div className="grid grid-cols-12">
       <div className=" col-span-1"></div>
       <div className="col-span-10 mt-2">
+        <button
+          type="submit"
+          className="btn text-xl"
+          onClick={() => {
+            navigate("/menu/test");
+          }}
+        >
+          &larr;
+        </button>
         <div className="mt-2 mb-2 text-4xl font-extrabold leading-none tracking-tight">
           Create Error massage
         </div>

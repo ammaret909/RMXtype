@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 const errorMassageData: DataErrorMassage = {
   rcc: "",
   id: 0,
@@ -16,19 +16,23 @@ export function ManageErrorMassage() {
   const [id, setId] = useState("");
   const [massage, setMassage] = useState("");
   const [description, setDescription] = useState("");
+  const navigate = useNavigate();
 
   const searchErrorMassage = async () => {
     const searchBodyMassage = {
       search: search,
     };
 
-    const response = await fetch(`http://localhost:8080/massage/search`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(searchBodyMassage),
-    });
+    const response = await fetch(
+      `http://3.133.137.68:8080/RemomaxBE/massage/search`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(searchBodyMassage),
+      }
+    );
     if (response.ok) {
       const data = await response.json();
       setErrorMassage(data);
@@ -40,13 +44,16 @@ export function ManageErrorMassage() {
       search: rcc,
     };
 
-    const response = await fetch(`http://localhost:8080/massage/data`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(searchBodyMassage),
-    });
+    const response = await fetch(
+      `http://3.133.137.68:8080/RemomaxBE/massage/data`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(searchBodyMassage),
+      }
+    );
     if (response.ok) {
       const data = await response.json();
       setRcc(data.rcc);
@@ -64,13 +71,16 @@ export function ManageErrorMassage() {
       massage: massage,
       description: description,
     };
-    const response = await fetch(`http://localhost:8080/massage/edit`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(resBodyErrorMassage),
-    });
+    const response = await fetch(
+      `http://3.133.137.68:8080/RemomaxBE/massage/edit`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(resBodyErrorMassage),
+      }
+    );
     if (response.ok) {
       alert("success");
       window.location.reload();
@@ -106,6 +116,15 @@ export function ManageErrorMassage() {
     <div className="grid grid-cols-12">
       <div className=" col-span-1"></div>
       <div className="col-span-10 mt-2">
+        <button
+          type="submit"
+          className="btn text-xl"
+          onClick={() => {
+            navigate("/menu/test");
+          }}
+        >
+          &larr;
+        </button>
         <div className="mt-2 mb-2 text-4xl font-extrabold leading-none tracking-tight">
           Search Error massage
         </div>

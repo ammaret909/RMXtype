@@ -13,10 +13,10 @@ export function TestFunction() {
       >
         &larr;
       </button>
-      <div className="grid grid-cols-1 text-zinc-600 text-sm">
-        <div className="rounded-box shadow-xl bg-white p-6 row m-2 grid grid-cols-12">
+      <div className="grid grid-cols-1 text-zinc-600 text-sm ">
+        <div className="rounded-box shadow-xl p-6 row m-2 grid grid-cols-12 bg-slate-50">
           <div className="text-xl ml-4 col-span-10 flex items-center">
-            P'pik test
+            Create Page
           </div>
         </div>
       </div>
@@ -25,7 +25,7 @@ export function TestFunction() {
         <div
           className=" btn shadow-md bg-[#6d8aaa] hover:bg-[#607a96] m-2 p-10 grid content-center"
           onClick={() => {
-            navigate("/post_asp");
+            navigate("/page/asp");
           }}
         >
           <div className=" text-sm text-white">Post ASP File</div>
@@ -34,7 +34,7 @@ export function TestFunction() {
         <div
           className=" btn shadow-md bg-[#6d8aaa] hover:bg-[#607a96] m-2 p-10 grid content-center"
           onClick={() => {
-            navigate("/create_page");
+            navigate("/page/create");
           }}
         >
           <div className=" text-sm text-white">Create Page</div>
@@ -43,10 +43,37 @@ export function TestFunction() {
         <div
           className=" btn shadow-md bg-[#6d8aaa] hover:bg-[#607a96] m-2 p-10 grid content-center"
           onClick={() => {
-            navigate("/search_page");
+            navigate("/page/search");
           }}
         >
           <div className=" text-sm text-white">Search Page</div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 text-zinc-600 text-sm mt-4">
+        <div className="rounded-box shadow-xl p-6 row m-2 grid grid-cols-12 bg-slate-50">
+          <div className="text-xl ml-4 col-span-10 flex items-center">
+            Create Massage
+          </div>
+        </div>
+      </div>
+      <div className="grid lg:grid-cols-5 sm:grid-cols-3 ounded-box h1">
+        <div
+          className=" btn shadow-md bg-[#6d8aaa] hover:bg-[#607a96] m-2 p-10 grid content-center"
+          onClick={() => {
+            navigate("/massage/create");
+          }}
+        >
+          <div className=" text-sm text-white">Create Massage</div>
+        </div>
+
+        <div
+          className=" btn shadow-md bg-[#6d8aaa] hover:bg-[#607a96] m-2 p-10 grid content-center"
+          onClick={() => {
+            navigate("/massage/search");
+          }}
+        >
+          <div className=" text-sm text-white">Search Massage</div>
         </div>
       </div>
     </div>

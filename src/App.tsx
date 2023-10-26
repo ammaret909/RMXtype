@@ -14,6 +14,7 @@ import { CreatePage } from "./pages/CreatePage";
 import { TestFunction } from "./pages/TestFunction";
 import { ManageErrorMassage } from "./pages/ManageErrorMassage";
 import { CreateErrorMassage } from "./pages/CreateErrorMassage";
+import { Kmt2main } from "./pages/Kmt2main";
 export default function App() {
   return (
     <Routes>
@@ -29,9 +30,10 @@ export default function App() {
       <Route path="/page/asp" element={<PostFileAsp />} />
       <Route path="/page/search" element={<SearchAndEditPage />} />
       <Route path="/page/create" element={<CreatePage />} />
-      <Route path="/massage/error" element={<ManageErrorMassage />} />
+      <Route path="/massage/search" element={<ManageErrorMassage />} />
       <Route path="/massage/create" element={<CreateErrorMassage />} />
       <Route path="/menu/test" element={<TestFunction />} />
+      <Route path="/kmt2main" element={<Kmt2main />} />
     </Routes>
   );
 }

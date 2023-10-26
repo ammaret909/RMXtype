@@ -4,8 +4,8 @@ import ButtonMenu from "../components/ButtonMenu";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
-export function Home() {
-  const [, setCurrentPage] = useState("ErpMWFTools");
+export function Kmt2main() {
+  const [, setCurrentPage] = useState("kmt2main");
   const [dataPage, setDataPage] = useState<DataPage>({
     rcc: "",
     namePage: "",
@@ -17,7 +17,7 @@ export function Home() {
     header2DTOoutList: [],
     header3DTOoutList: [],
   });
-  const [history, setHistory] = useState(["ErpMWFTools"]);
+  const [history, setHistory] = useState(["kmt2main"]);
   const [show, setShow] = useState(false);
   const [showH1, setShowH1] = useState(false);
   const [showH2, setShowH2] = useState(false);
